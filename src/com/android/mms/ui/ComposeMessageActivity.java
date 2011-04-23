@@ -224,7 +224,7 @@ public class ComposeMessageActivity extends Activity
     private Conversation mConversation;     // Conversation we are working in
 
     private boolean mExitOnSent;            // Should we finish() after sending a message?
-    private boolean mSendOnEnter;           
+    private boolean mSendOnEnter;           // Send on enter option
 
     private View mTopPanel;                 // View containing the recipient and subject editors
     private View mBottomPanel;              // View containing the text editor, send button, ec.
