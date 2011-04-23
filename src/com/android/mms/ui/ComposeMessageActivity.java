@@ -140,6 +140,9 @@ import com.android.mms.ui.RecipientsEditor.RecipientContextMenuInfo;
 import com.android.mms.util.SendingProgressTokenManager;
 import com.android.mms.util.SmileyParser;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 /**
  * This is the main UI for:
  * 1. Composing a new message;
@@ -221,6 +224,7 @@ public class ComposeMessageActivity extends Activity
     private Conversation mConversation;     // Conversation we are working in
 
     private boolean mExitOnSent;            // Should we finish() after sending a message?
+    private boolean mSendOnEnter;           
 
     private View mTopPanel;                 // View containing the recipient and subject editors
     private View mBottomPanel;              // View containing the text editor, send button, ec.
@@ -2824,6 +2828,9 @@ public class ComposeMessageActivity extends Activity
 
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (event != null) {
+            if (((event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER) || (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) && !mSendOnEnter) {
+            	return false;
+            }
             // if shift key is down, then we want to insert the '\n' char in the TextView;
             // otherwise, the default action is to send the message.
             if (!event.isShiftPressed()) {
@@ -3181,6 +3188,8 @@ public class ComposeMessageActivity extends Activity
     }
 
     private void initActivityState(Bundle bundle, Intent intent) {
+       SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((Context)ComposeMessageActivity.this);
+       mSendOnEnter = prefs.getBoolean(MessagingPreferenceActivity.SEND_ON_ENTER, true);
         if (bundle != null) {
             String recipients = bundle.getString("recipients");
             mConversation = Conversation.get(this,

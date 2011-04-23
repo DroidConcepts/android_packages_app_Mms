@@ -753,5 +753,10 @@
     <!-- Brief small label shown to right of message when it is being sent. -->
     <string name="sending_message">Sending\u2026</string>
 
+    <!-- Extra settings -->
+    <string name="pref_extra_settings">Extra settings</string>
+    <string name="pref_title_mms_send_on_enter">Send on Enter</string>
+    <string name="pref_summary_mms_send_on_enter">Enable/disable send message when Enter key pressed</string>
+
 </resources>
 
