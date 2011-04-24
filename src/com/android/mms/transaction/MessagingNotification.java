@@ -65,6 +65,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import android.graphics.Color;
+import java.util.ArrayList;
+
 /**
  * This class is used to update the notification indicator. It will check whether
  * there are unread messages. If yes, it would show the notification indicator,
@@ -517,16 +520,40 @@ public class MessagingNotification {
                 audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE;
 
             if (vibrateAlways || vibrateSilent && nowSilent) {
-                notification.defaults |= Notification.DEFAULT_VIBRATE;
+/** 
+Vibrate Stuff 
+*/
+                 String mVibratePattern = sp.getString(MessagingPreferenceActivity.NOTIFICATION_VIBRATE_PATTERN, "0,1200");
+               if(!mVibratePattern.equals("")) {
+                   notification.vibrate = parseVibratePattern(mVibratePattern);
+               } else {
+                    notification.defaults |= Notification.DEFAULT_VIBRATE;
+               }
             }
-
+/**
+End Vibrate Stuff
+*/
             String ringtoneStr = sp.getString(MessagingPreferenceActivity.NOTIFICATION_RINGTONE,
                     null);
             notification.sound = TextUtils.isEmpty(ringtoneStr) ? null : Uri.parse(ringtoneStr);
         }
 
         notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
+/**
+LED Stuff
+*/
+       boolean mBlinkLed = sp.getBoolean(MessagingPreferenceActivity.NOTIFICATION_LED, true);
+        if(mBlinkLed) {
+           // default color is green: 0xff00ff00
+           int mLedColor = Color.parseColor(sp.getString(MessagingPreferenceActivity.NOTIFICATION_LED_COLOR, "green"));
+           notification.ledARGB = mLedColor;
+            int mLedBlinkRate = Integer.parseInt(sp.getString(MessagingPreferenceActivity.NOTIFICATION_LED_BLINK_RATE, "2"));
+            notification.ledOnMS = 500;
+           notification.ledOffMS = mLedBlinkRate * 1000;
+       }
+/**
+End LED Stuff
+*/
 
         // set up delete intent
         notification.deleteIntent = PendingIntent.getBroadcast(context, 0,
@@ -750,5 +777,42 @@ public class MessagingNotification {
         return (intent != null) && intent.getBooleanExtra("failed_download_flag", false);
     }
 
+/**
+More Vibrate Stuff, values borrowed from CyanogenMod
+*/
+    public static long[] parseVibratePattern(String stringPattern) {
+      ArrayList<Long> arrayListPattern = new ArrayList<Long>();
+      Long l;
+      String[] splitPattern = stringPattern.split(",");
+      int VIBRATE_PATTERN_MAX_SECONDS = 60000;
+      int VIBRATE_PATTERN_MAX_PATTERN = 100;
+
+      for (int i = 0; i < splitPattern.length; i++) {
+        try {
+          l = Long.parseLong(splitPattern[i].trim());
+        } catch (NumberFormatException e) {
+          return null;
+        }
+        if (l > VIBRATE_PATTERN_MAX_SECONDS) {
+          return null;
+        }
+        arrayListPattern.add(l);
+      }
+
+      // TODO: can i just cast the whole ArrayList into long[]?
+      int size = arrayListPattern.size();
+      if (size > 0 && size < VIBRATE_PATTERN_MAX_PATTERN) {
+        long[] pattern = new long[size];
+        for (int i = 0; i < pattern.length; i++) {
+          pattern[i] = arrayListPattern.get(i);
+        }
+        return pattern;
+      }
+
+      return null;
+    }
+/**
+End the Vibrate Values
+*/
 
 }
