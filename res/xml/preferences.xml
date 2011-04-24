@@ -130,7 +130,7 @@
                           android:dialogTitle="@string/pref_title_mms_notification_vibrate_pattern" />
         </PreferenceCategory>
     </PreferenceScreen>
-  </PreferenceCategory>
+        </PreferenceCategory>
   <PreferenceCategory android:title="@string/pref_extended_settings">
     <CheckBoxPreference android:key="pref_key_mms_send_on_enter"
                         android:title="@string/pref_title_mms_send_on_enter"

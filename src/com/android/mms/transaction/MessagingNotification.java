@@ -780,6 +780,7 @@ End LED Stuff
 /**
 More Vibrate Stuff, values borrowed from CyanogenMod
 */
+
     public static long[] parseVibratePattern(String stringPattern) {
       ArrayList<Long> arrayListPattern = new ArrayList<Long>();
       Long l;
@@ -811,6 +812,7 @@ More Vibrate Stuff, values borrowed from CyanogenMod
 
       return null;
     }
+
 /**
 End the Vibrate Values
 */

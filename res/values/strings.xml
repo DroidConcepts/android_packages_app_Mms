@@ -781,7 +781,7 @@
     <string name="pref_summary_mms_notification_led_blink_rate">Change LED blink rate</string>
     <string name="pref_dialogtitle_mms_notification_led_blink_rate">Select your LED blink rate</string>
     
-    <!-- Vibrate Settings -->
+    <!-- Vibrate Strings -->
     <string name="pref_title_mms_notification_vibrate_settings">Vibrate settings</string>
     <string name="pref_title_mms_notification_vibrate_pattern">Vibrate pattern</string>
     <string name="pref_summary_mms_notification_vibrate_pattern">Change vibrate pattern</string>
