@@ -1,3 +1,11 @@
 Droid Concepts Modified Mms App
 =============================================
-Thanks to the CyanogenMod team, for originally creating these options
+>     Added option to send on 'Enter'
+>     Added abiltiy to customize LED color
+>     Added ability to customize Vibrate
+
+=============================================
+Thanks to irrenhaus for originally creating these options on the stock android mms app
+Thanks to the CyanogenMod team, for keeping these options through their android builds, this allowed me to look at what they did and add in code for the specific parts I wanted from irrenhaus, and the cyanogenmod team
+
+
