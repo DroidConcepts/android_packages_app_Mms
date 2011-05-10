@@ -76,6 +76,8 @@ import com.android.mms.util.SmileyParser;
 import com.google.android.mms.ContentType;
 import com.google.android.mms.pdu.PduHeaders;
 
+import android.preference.PreferenceManager;
+
 /**
  * This class provides view of a message in the messages list.
  */
@@ -115,6 +117,7 @@ public class MessageListItem extends LinearLayout implements
 
         mMsgListItem = findViewById(R.id.msg_list_item);
         mBodyTextView = (TextView) findViewById(R.id.text_view);
+        mBodyTextView.setTextSize(Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MessagingPreferenceActivity.MESSAGE_FONT_SIZE, "18")));
         mLockedIndicator = (ImageView) findViewById(R.id.locked_indicator);
         mDeliveredIndicator = (ImageView) findViewById(R.id.delivered_indicator);
         mDetailsIndicator = (ImageView) findViewById(R.id.details_indicator);
