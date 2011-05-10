@@ -142,7 +142,7 @@ import com.android.mms.util.SmileyParser;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
+import com.android.mms.ui.MessagingPreferenceActivity;
 
 /**
  * This is the main UI for:
@@ -1389,7 +1389,7 @@ public class ComposeMessageActivity extends Activity
     }
 
     /**
-     * Copies media from an Mms to the "download" directory on the SD card
+     * Copies media from an Mms to the user specified directory on the SD card
      * @param msgId
      */
     private boolean copyMedia(long msgId) {
@@ -1440,8 +1440,10 @@ public class ComposeMessageActivity extends Activity
                 }
                 // Depending on the location, there may be an
                 // extension already on the name or not
+                // Get Shared Preferences and User Defined Save Location for MMS
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 String dir = Environment.getExternalStorageDirectory() + "/"
-                                + Environment.DIRECTORY_DOWNLOADS  + "/";
+                                + prefs.getString(MessagingPreferenceActivity.MMS_SAVE_LOCATION, "download")  + "/";
                 String extension;
                 int index;
                 if ((index = fileName.indexOf(".")) == -1) {

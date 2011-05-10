@@ -69,6 +69,7 @@ Droid Concepts Extended Settings
     public static final String NOTIFICATION_VIBRATE_CALL       = "pref_key_mms_notification_vibrate_call";
     public static final String BLACK_BACKGROUND                = "pref_key_mms_black_background";
     public static final String MESSAGE_FONT_SIZE               = "pref_key_mms_message_font_size";
+    public static final String MMS_SAVE_LOCATION               = "pref_save_location";
 /**
 End Droid Concepts Extended Settings
 */
